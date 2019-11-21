@@ -79,11 +79,11 @@
         div.nav div.search input {
             height: 25px;
         }
-        div.nav div.search a {
+        div.nav div.search span {
             display: inline-block;
             height: 25px;
         }
-        div.nav div.search a img {
+        div.nav div.search span img {
             height: 10px;
             margin-left: 5px;
         }
@@ -128,7 +128,7 @@
         	text-decoration: line-through;
         }
     </style>
-
+<script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
 <script type="text/javascript">
 
 function fncGetList(currentPage, sorting){
@@ -136,6 +136,45 @@ function fncGetList(currentPage, sorting){
 	document.getElementById("sorting").value = sorting;
 	document.detailForm.submit();
 }
+
+$(function() {
+	$('div.product div.prodName').click(function() {
+		var prodNo = $(this).children("span").text();
+		console.log(prodNo);
+		
+		if(${param.menu.equals("manage")}) {
+			self.location = '/product/updateProduct?prodNo=' + prodNo;
+		} else if(${param.menu.equals("search")}) {
+			self.location ="/product/getHistory?prodNo=" + prodNo;
+		}
+		
+		
+	})
+	
+	$('div.nav div.search span').click(function() {
+		fncGetList('1', '');
+	})
+	
+	$('ul.sorting li:contains("신상품")').click(function() {
+		self.location ="/product/listProduct?menu=${param.menu }&sorting=0&searchCondition=${search.searchCondition}&searchKeyword=${search.searchKeyword}";
+		console.log("/product/listProduct?menu=${param.menu }&sorting=0&searchCondition=${search.searchCondition}&searchKeyword=${search.searchKeyword}");
+	})
+	
+	$('ul.sorting li:contains("낮은가격")').click(function() {
+		self.location ="/product/listProduct?menu=${param.menu }&sorting=1&searchCondition=${search.searchCondition}&searchKeyword=${search.searchKeyword}";
+		console.log("/product/listProduct?menu=${param.menu }&sorting=1&searchCondition=${search.searchCondition}&searchKeyword=${search.searchKeyword}");
+	})
+	
+	$('ul.sorting li:contains("높은가격")').click(function() {
+		self.location ="/product/listProduct?menu=${param.menu }&sorting=2&searchCondition=${search.searchCondition}&searchKeyword=${search.searchKeyword}";
+		console.log("/product/listProduct?menu=${param.menu }&sorting=2&searchCondition=${search.searchCondition}&searchKeyword=${search.searchKeyword}");
+	})
+	
+	$('ul.sorting li:contains("이름")').click(function() {
+		self.location ="/product/listProduct?menu=${param.menu }&sorting=3&searchCondition=${search.searchCondition}&searchKeyword=${search.searchKeyword}";
+		console.log("/product/listProduct?menu=${param.menu }&sorting=3&searchCondition=${search.searchCondition}&searchKeyword=${search.searchKeyword}");
+	})
+});
 
 </script>
 </head>
@@ -154,42 +193,42 @@ function fncGetList(currentPage, sorting){
 				<option value="2" ${!empty search.searchCondition && search.searchCondition == 2 ? "selected" : "" }>상품가격</option>
                 </select>
                 <input type="text" name="searchKeyword" value="${!empty search.searchKeyword ? search.searchKeyword : '' }">
-                <a href="javascript:fncGetList('1', '')"><img src="../images/header_ico_search.png" alt=""> SEARCH</a>
+                <span><!-- <a href="javascript:fncGetList('1', '')"> --><img src="../images/header_ico_search.png" alt=""> SEARCH<!-- </a> --></span>
             </div>
         </div>
         <input type="hidden" id="sorting" name="sorting" value=""/>
         <ul class="sorting">
         <c:if test="${!empty search.sorting }">
         <c:if test="${search.sorting == '0' }">
-        <li class="on"><a href="/product/listProduct?menu=${param.menu }&sorting=0&searchCondition=${search.searchCondition}&searchKeyword=${search.searchKeyword}"><span></span> 신상품</a></li>
-            <li><a href="/product/listProduct?menu=${param.menu }&sorting=1&searchCondition=${search.searchCondition}&searchKeyword=${search.searchKeyword}"><span></span> 낮은가격</a></li>
-            <li><a href="/product/listProduct?menu=${param.menu }&sorting=2&searchCondition=${search.searchCondition}&searchKeyword=${search.searchKeyword}"><span></span> 높은가격</a></li>
-            <li><a href="/product/listProduct?menu=${param.menu }&sorting=3&searchCondition=${search.searchCondition}&searchKeyword=${search.searchKeyword}"><span></span> 이름</a></li>
+        <li class="on"><%-- <a href="/product/listProduct?menu=${param.menu }&sorting=0&searchCondition=${search.searchCondition}&searchKeyword=${search.searchKeyword}"> --%><span></span> 신상품<!-- </a> --></li>
+            <li><%-- <a href="/product/listProduct?menu=${param.menu }&sorting=1&searchCondition=${search.searchCondition}&searchKeyword=${search.searchKeyword}"> --%><span></span> 낮은가격<!-- </a> --></li>
+            <li><%-- <a href="/product/listProduct?menu=${param.menu }&sorting=2&searchCondition=${search.searchCondition}&searchKeyword=${search.searchKeyword}"> --%><span></span> 높은가격<!-- </a> --></li>
+            <li><%-- <a href="/product/listProduct?menu=${param.menu }&sorting=3&searchCondition=${search.searchCondition}&searchKeyword=${search.searchKeyword}"> --%><span></span> 이름<!-- </a> --></li>
         </c:if>
         <c:if test="${search.sorting == '1' }">
-        <li><a href="/product/listProduct?menu=${param.menu }&sorting=0&searchCondition=${search.searchCondition}&searchKeyword=${search.searchKeyword}"><span></span> 신상품</a></li>
-            <li class="on"><a href="/product/listProduct?menu=${param.menu }&sorting=1&searchCondition=${search.searchCondition}&searchKeyword=${search.searchKeyword}"><span></span> 낮은가격</a></li>
-            <li><a href="/product/listProduct?menu=${param.menu }&sorting=2&searchCondition=${search.searchCondition}&searchKeyword=${search.searchKeyword}"><span></span> 높은가격</a></li>
-            <li><a href="/product/listProduct?menu=${param.menu }&sorting=3&searchCondition=${search.searchCondition}&searchKeyword=${search.searchKeyword}"><span></span> 이름</a></li>
+        <li><span></span> 신상품</li>
+            <li class="on"><span></span> 낮은가격</li>
+            <li><span></span> 높은가격</li>
+            <li><span></span> 이름</li>
         </c:if>
         <c:if test="${search.sorting == '2' }">
-        <li><a href="/product/listProduct?menu=${param.menu }&sorting=0&searchCondition=${search.searchCondition}&searchKeyword=${search.searchKeyword}"><span></span> 신상품</a></li>
-            <li><a href="/product/listProduct?menu=${param.menu }&sorting=1&searchCondition=${search.searchCondition}&searchKeyword=${search.searchKeyword}"><span></span> 낮은가격</a></li>
-            <li class="on"><a href="/product/listProduct?menu=${param.menu }&sorting=2&searchCondition=${search.searchCondition}&searchKeyword=${search.searchKeyword}"><span></span> 높은가격</a></li>
-            <li><a href="/product/listProduct?menu=${param.menu }&sorting=3&searchCondition=${search.searchCondition}&searchKeyword=${search.searchKeyword}"><span></span> 이름</a></li>
+        <li><span></span> 신상품</li>
+            <li><span></span> 낮은가격</li>
+            <li class="on"><span></span> 높은가격</li>
+            <li><span></span> 이름</li>
         </c:if>
         <c:if test="${search.sorting == '3' }">
-        <li><a href="/product/listProduct?menu=${param.menu }&sorting=0&searchCondition=${search.searchCondition}&searchKeyword=${search.searchKeyword}"><span></span> 신상품</a></li>
-            <li><a href="/product/listProduct?menu=${param.menu }&sorting=1&searchCondition=${search.searchCondition}&searchKeyword=${search.searchKeyword}"><span></span> 낮은가격</a></li>
-            <li><a href="/product/listProduct?menu=${param.menu }&sorting=2&searchCondition=${search.searchCondition}&searchKeyword=${search.searchKeyword}"><span></span> 높은가격</a></li>
-            <li class="on"><a href="/product/listProduct?menu=${param.menu }&sorting=3&searchCondition=${search.searchCondition}&searchKeyword=${search.searchKeyword}"><span></span> 이름</a></li>
+        <li><span></span> 신상품</li>
+            <li><span></span> 낮은가격</li>
+            <li><span></span> 높은가격</li>
+            <li class="on"><span></span> 이름</li>
         </c:if>
         </c:if>
         <c:if test="${empty search.sorting}">
-        <li><a href="/product/listProduct?menu=${param.menu }&sorting=0&searchCondition=${search.searchCondition}&searchKeyword=${search.searchKeyword}"><span></span> 신상품</a></li>
-            <li><a href="/product/listProduct?menu=${param.menu }&sorting=1&searchCondition=${search.searchCondition}&searchKeyword=${search.searchKeyword}"><span></span> 낮은가격</a></li>
-            <li><a href="/product/listProduct?menu=${param.menu }&sorting=2&searchCondition=${search.searchCondition}&searchKeyword=${search.searchKeyword}"><span></span> 높은가격</a></li>
-            <li><a href="/product/listProduct?menu=${param.menu }&sorting=3&searchCondition=${search.searchCondition}&searchKeyword=${search.searchKeyword}"><span></span> 이름</a></li>
+        <li><span></span> 신상품</li>
+            <li><span></span> 낮은가격</li>
+            <li><span></span> 높은가격</li>
+            <li><span></span> 이름</li>
         </c:if>
             
         </ul>
@@ -205,16 +244,8 @@ function fncGetList(currentPage, sorting){
                     <img src="/images/uploadFiles/${product.fileNameList[0]}"/>
                 </div>
                 <div class="prodName">
-	                <c:if test="${param.menu.equals('manage') }">
-						<a href="/product/updateProduct?prodNo=${product.prodNo }">${product.prodName }</a>
-					</c:if>
-					
-					<c:if test="${param.menu.equals('search') }">
-						<c:if test="${product.quantity > 0}">
-							<a href="/product/getHistory?prodNo=${product.prodNo }">${product.prodName }</a>
-						</c:if>
-						
-					</c:if>
+                	<span class="hiddenNo" style="display: none;">${product.prodNo}</span>
+	                ${product.prodName }
                     
                 </div>
                 <div class="price">

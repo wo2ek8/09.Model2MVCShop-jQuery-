@@ -19,14 +19,25 @@
 
 <script type="text/javascript" src="../javascript/calendar.js">
 </script>
-
+<script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
 <script type="text/javascript">
 
 function fncAddPurchase() {
 	document.addPurchase.submit();
 }
 
+$(function() {
+	$('.ct_btn01:contains("备概")').click(function() {
+		fncAddPurchase();
+	});
+	
+	$('.ct_btn01:contains("秒家")').click(function() {
+		history.go(-1);
+	});
+});
+
 </script>
+
 </head>
 
 <body>
@@ -226,7 +237,7 @@ function fncAddPurchase() {
 						<img src="/images/ct_btnbg01.gif" width="17" height="23"/>
 					</td>
 					<td background="/images/ct_btnbg02.gif" class="ct_btn01" style="padding-top: 3px;">
-						<a href="javascript:fncAddPurchase();">备概</a>
+						<!-- <a href="javascript:fncAddPurchase();"> -->备概<!-- </a> -->
 					</td>
 					<td width="14" height="23">
 						<img src="/images/ct_btnbg03.gif" width="14" height="23"/>
@@ -236,7 +247,7 @@ function fncAddPurchase() {
 						<img src="/images/ct_btnbg01.gif" width="17" height="23"/>
 					</td>
 					<td background="/images/ct_btnbg02.gif" class="ct_btn01" style="padding-top: 3px;">
-						<a href="javascript:history.go(-1)">秒家</a>
+						<!-- <a href="javascript:history.go(-1)"> -->秒家<!-- </a> -->
 					</td>
 					<td width="14" height="23">
 						<img src="/images/ct_btnbg03.gif" width="14" height="23"/>

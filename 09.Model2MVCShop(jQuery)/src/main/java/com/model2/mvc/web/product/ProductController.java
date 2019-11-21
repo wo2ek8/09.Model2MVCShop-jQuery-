@@ -65,7 +65,7 @@ public class ProductController {
 	// @Value("#{commonProperties['pageSize'] ? : 2}")
 	int pageSize;
 
-	private static final String UPLOAD_PATH = "C:\\\\Users\\\\User\\\\git\\\\07.Model2MVCShop-URI-pattern-\\\\07.Model2MVCShop(URI,pattern)\\\\WebContent\\\\images\\\\uploadFiles";
+	private static final String UPLOAD_PATH = "C:\\Users\\User\\git\\09.Model2MVCShop-jQuery-\\09.Model2MVCShop(jQuery)\\WebContent\\images\\uploadFiles";
 	
 	@RequestMapping(value = "addProduct", method = RequestMethod.POST)
 	public String addProduct(@RequestParam("uploadFiles") ArrayList<MultipartFile> fileName, @ModelAttribute("product") Product product) throws Exception {
@@ -366,7 +366,7 @@ public class ProductController {
 
 	//@RequestMapping("/updateProductView.do")
 	@RequestMapping(value="updateProduct", method=RequestMethod.GET)
-	public ModelAndView updateProductView(@RequestParam("prodNo") int prodNo) throws Exception {
+	public ModelAndView updateProduct(@RequestParam("prodNo") int prodNo) throws Exception {
 
 		System.out.println("/product/updateProduct : GET");
 		// Business Logic
@@ -393,11 +393,27 @@ public class ProductController {
 
 	//@RequestMapping("/updateProduct.do")
 	@RequestMapping(value="updateProduct", method=RequestMethod.POST)
-	public ModelAndView updateProduct(@ModelAttribute("product") Product product, HttpSession session)
+	public ModelAndView updateProduct(@ModelAttribute("product") Product product, HttpSession session, @RequestParam("uploadFiles") ArrayList<MultipartFile> fileName)
 			throws Exception {
 
 		System.out.println("/product/updateProduct : POST");
 		// Business Logic
+		
+		String result = "";
+		 int i = 0;
+		 System.out.println( "addProduct() start...");
+		 for (MultipartFile files : fileName) {
+			 i++;
+			result = saveFile(files) + result;
+			if (i != fileName.size()) {
+				result = ":" + result;
+			}
+		}
+		    System.out.println("result : " + result);
+		    
+		    product.setManuDate(product.getManuDate().replace("-", ""));
+			product.setFileName(result);
+		
 		productService.updateProduct(product);
 
 		ModelAndView modelAndView = new ModelAndView();

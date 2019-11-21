@@ -13,6 +13,22 @@
 
 <link rel="stylesheet" href="../css/admin.css" type="text/css">
 
+<script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
+<script type="text/javascript">
+	$(function() {
+		$('.ct_btn01:contains("확인")').click(function() {
+			
+			self.location ='/product/listProduct?menu=manage';
+			console.log('/product/listProduct?menu=manage');
+		})
+		
+		$('.ct_btn01:contains("추가등록")').click(function() {
+			self.location ='../product/addProductView.jsp';
+			console.log('../product/addProductView.jsp');
+		})
+	});
+</script>
+
 </head>
 
 <body bgcolor="#ffffff" text="#000000">
@@ -138,7 +154,7 @@
 						<img src="/images/ct_btnbg01.gif" width="17" height="23"/>
 					</td>
 					<td background="/images/ct_btnbg02.gif" class="ct_btn01" style="padding-top:3px;">
-						<a href="/product/listProduct?menu=manage">확인</a>
+						<!-- <a href="/product/listProduct?menu=manage"> -->확인<!-- </a> -->
 					</td>
 					<td width="14" height="23">
 						<img src="/images/ct_btnbg03.gif" width="14" height="23"/>
@@ -147,7 +163,7 @@
 						<img src="/images/ct_btnbg01.gif" width="17" height="23"/>
 					</td>
 					<td background="/images/ct_btnbg02.gif" class="ct_btn01" style="padding-top:3px;">
-						<a href="../product/addProductView.jsp;">추가등록</a>
+						<!-- <a href="../product/addProductView.jsp;"> -->추가등록<!-- </a> -->
 					</td>
 					<td width="14" height="23">
 						<img src="/images/ct_btnbg03.gif" width="14" height="23"/>

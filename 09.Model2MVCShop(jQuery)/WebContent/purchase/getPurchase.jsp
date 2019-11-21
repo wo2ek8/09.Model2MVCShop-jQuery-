@@ -14,7 +14,20 @@
 <title>구매상세조회</title>
 
 <link rel="stylesheet" href="../css/admin.css" type="text/css">
+<script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
+<script type="text/javascript">
+$(function() {
+	$('.ct_btn01:contains("수정")').click(function() {
+		self.location = '/purchase/updatePurchase?tranNo=${purchase.tranNo }';
+		console.log('/purchase/updatePurchase?tranNo=${purchase.tranNo }');
+	});
 
+	$('.ct_btn01:contains("확인")').click(function() {
+		history.go(-1);
+	});
+});
+
+</script>
 </head>
 
 <body bgcolor="#ffffff" text="#000000">

@@ -78,7 +78,7 @@ div.button a {
 	font-size: 10px;
 }
 
-td.select a {
+td.select span {
 	padding: 5px 10px;
 	display: inline-block;
 	margin-bottom: 3px;
@@ -90,6 +90,26 @@ center {
 	margin-top: 30px;
 }
 </style>
+
+<script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
+	<script type="text/javascript">
+		$(function() {
+			$('td.select span:contains("주문하기")').click(function() {
+				var prodNo = $(this).children("#add_purchase_prod").val();
+				var quantity = $(this).children('#add_purchase_quantity').val();
+				self.location ="/purchase/addPurchase?prodNo=" + prodNo + "&quantity=" + quantity;
+				
+				console.log("/purchase/addPurchase?prodNo=" + prodNo + "&quantity=" + quantity);
+			});
+			
+			$('td.select span:contains("삭제하기")').click(function() {
+				var prodNo = $(this).children("#remove_cart_prod").val();
+				self.location ="/product/removeCart?prodNo=" + prodNo;
+				
+				console.log("/product/removeCart?prodNo=" + prodNo);
+			});
+		});
+	</script>
 </head>
 <body>
 	<div class="title">SHOPPING CART</div>
@@ -148,9 +168,15 @@ center {
 			<td>-</td>
 			<td>-</td>
 			<td><strong>${product.price }원</strong></td>
-			<td class="select"><a
-				href="/purchase/addPurchase?prodNo=${product.prodNo }&quantity=${product.quantity}">주문하기</a><br>
-				<a href="/product/removeCart?prodNo=${product.prodNo }">삭제하기</a></td>
+			<td class="select">
+				<span><%-- <a href="/purchase/addPurchase?prodNo=${product.prodNo }&quantity=${product.quantity}"> --%>
+				<input type="hidden" id="add_purchase_prod" value="${product.prodNo }">
+				<input type="hidden" id="add_purchase_quantity" value="${product.quantity }">
+				주문하기<!-- </a> --></span>
+				<br>
+				<span><%-- <a href="/product/removeCart?prodNo=${product.prodNo }"> --%>
+				<input type="hidden" id="remove_cart_prod" value="${product.prodNo }">
+				삭제하기<!-- </a> --></span></td>
 		</tr>
 		</c:forEach>
 		<%-- <%

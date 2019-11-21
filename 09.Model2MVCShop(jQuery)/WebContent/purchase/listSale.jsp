@@ -8,12 +8,32 @@
 <title>판매 목록조회</title>
 
 <link rel="stylesheet" href="/css/admin.css" type="text/css">
-
+<script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
 <script type="text/javascript">
 	function fncGetList(currentPage) {
 		document.getElementById("currentPage").value = currentPage;
 		document.detailForm.submit();
 	}
+	
+	$(function() {
+		
+		$('tr.ct_list_pop td:nth-child(1) span').click(function() {
+			var tranNo = $(this).parent().children('input').val();
+			self.location = '/purchase/getPurchase?tranNo=' + tranNo;
+			console.log('/purchase/getPurchase?tranNo=' + tranNo);
+		});
+		
+		$('tr.ct_list_pop td:nth-child(3) span').click(function() {
+			self.location = '/user/getUser?userId=' + $(this).text().trim();
+			console.log('/user/getUser?userId=' + $(this).text().trim());
+		});
+		
+		$('tr.ct_list_pop td:nth-child(11) span').click(function() {
+			var tranNo = $(this).parent().children('input').val();
+			self.location = '/purchase/updateTranCode?tranNo=' + tranNo + '&tranCode=1&page=${resultPage.currentPage}&menu=sale';
+			console.log('/purchase/updateTranCode?tranNo=' + tranNo + '&tranCode=1&page=${resultPage.currentPage}&menu=sale');
+		});
+	});
 </script>
 </head>
 
@@ -64,12 +84,16 @@
 	<c:forEach var="purchase" items="${list }">
 	<c:set var="i" value="${i + 1 }"/>
 	<tr class="ct_list_pop">
-	<Td align="center">
-	<a href="/purchase/getPurchase?tranNo=${purchase.tranNo }">${i }</a>
-	</Td>
+	<td align="center">
+	<%-- <a href="/purchase/getPurchase?tranNo=${purchase.tranNo }"> --%>
+	<input type="hidden" value="${purchase.tranNo }"/>
+	<span>${i }</span><!-- </a> -->
+	</td>
 	<td></td>
 	<td align="left">
-	<a href="/user/getUser?userId=${purchase.buyer.userId }">${purchase.buyer.userId }</a>
+	<%-- <a href="/user/getUser?userId=${purchase.buyer.userId }"> --%>
+	<span>${purchase.buyer.userId }</span>
+	<!-- </a> -->
 	</td>
 	<td></td>
 		<td align="left">${purchase.receiverName }</td>
@@ -94,7 +118,10 @@
 		<td align="left">
 		
 		<c:if test="${purchase.tranCode.trim().equals('0') }">
-		<a href="/purchase/updateTranCode?tranNo=${purchase.tranNo }&tranCode=1&page=${resultPage.currentPage}&menu=sale">배송하기</a>
+		<%-- <a href="/purchase/updateTranCode?tranNo=${purchase.tranNo }&tranCode=1&page=${resultPage.currentPage}&menu=sale"> --%>
+		<input type="hidden" value="${purchase.tranNo }"/>
+		<span>배송하기</span>
+		<!-- </a> -->
 		</c:if>
 		
 			
